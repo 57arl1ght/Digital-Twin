@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  
+                  nodes = new vis.DataSet([{"color": "#ff4d4d", "font": {"color": "white"}, "id": "30:16:9d:7b:4d:be", "label": "\u0428\u041b\u042e\u0417\n192.168.1.1\nMERCUSYS TECHNOLOGIES CO., LTD.", "shape": "hexagon", "size": 40}, {"color": "#00ff00", "font": {"color": "white"}, "id": "00:d8:61:2d:c1:aa", "label": "Micro-Star INTL CO., LTD.\n192.168.1.103", "shape": "dot", "size": 25}, {"color": "#66b3ff", "font": {"color": "white"}, "id": "10:5a:17:6e:73:e2", "label": "Tuya Smart Inc.\n192.168.1.101", "shape": "dot", "size": 25}, {"color": "#66b3ff", "font": {"color": "white"}, "id": "48:9e:9d:a9:ea:f1", "label": "Hui Zhou Gaoshengda Technology Co.,LTD\n192.168.1.105", "shape": "dot", "size": 25}, {"color": "#66b3ff", "font": {"color": "white"}, "id": "62:2d:4a:93:9e:93", "label": "\u041d\u0435\u0432\u0456\u0434\u043e\u043c\u0438\u0439 \u043f\u0440\u0438\u0441\u0442\u0440\u0456\u0439\n192.168.1.106", "shape": "dot", "size": 25}, {"color": "#66b3ff", "font": {"color": "white"}, "id": "3a:a3:09:89:62:74", "label": "\u041d\u0435\u0432\u0456\u0434\u043e\u043c\u0438\u0439 \u043f\u0440\u0438\u0441\u0442\u0440\u0456\u0439\n192.168.1.104", "shape": "dot", "size": 25}]);
+                  edges = new vis.DataSet([{"color": "#555555", "from": "30:16:9d:7b:4d:be", "to": "00:d8:61:2d:c1:aa"}, {"color": "#555555", "from": "30:16:9d:7b:4d:be", "to": "10:5a:17:6e:73:e2"}, {"color": "#555555", "from": "30:16:9d:7b:4d:be", "to": "48:9e:9d:a9:ea:f1"}, {"color": "#555555", "from": "30:16:9d:7b:4d:be", "to": "62:2d:4a:93:9e:93"}, {"color": "#555555", "from": "30:16:9d:7b:4d:be", "to": "3a:a3:09:89:62:74"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 150,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

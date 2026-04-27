@@ -1,0 +1,26 @@
+{
+    "30:16:9d:7b:4d:be": {
+        "ip": "192.168.1.1",
+        "vendor": "MERCUSYS TECHNOLOGIES CO., LTD."
+    },
+    "00:d8:61:2d:c1:aa": {
+        "ip": "192.168.1.103",
+        "vendor": "Micro-Star INTL CO., LTD."
+    },
+    "10:5a:17:6e:73:e2": {
+        "ip": "192.168.1.101",
+        "vendor": "Tuya Smart Inc."
+    },
+    "48:9e:9d:a9:ea:f1": {
+        "ip": "192.168.1.105",
+        "vendor": "Hui Zhou Gaoshengda Technology Co.,LTD"
+    },
+    "62:2d:4a:93:9e:93": {
+        "ip": "192.168.1.106",
+        "vendor": "Невідомий пристрій"
+    },
+    "3a:a3:09:89:62:74": {
+        "ip": "192.168.1.104",
+        "vendor": "Невідомий пристрій"
+    }
+}

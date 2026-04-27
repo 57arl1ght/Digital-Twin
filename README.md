@@ -1,27 +1,23 @@
-## 🧩 How it works
-1. **Data Acquisition (`arp.py`):** Scans the local network, identifies active hosts, and updates `network_state.json`.
-2. **State Management (`network_state.json`):** Acts as the "Digital Twin" database, storing the current network topology.
-3. **Visualization (`visualize.py` + `vis.js`):** Reads the JSON state and renders an interactive web-based graph of your network infrastructure.
+# 🌐 Network Digital Twin
 
-# 🌐 Digital Twin Network Monitor
+A lightweight digital twin implementation for local network environments. This project focuses on the abstraction of network topology by maintaining a synchronized JSON state representation, enabling historical analysis and real-time visualization of network infrastructure.
 
-A Digital Twin implementation designed to bridge the gap between real-world network infrastructure and virtual monitoring models. This project creates a virtual representation of network state, allowing for predictive analysis and real-time synchronization.
+## 🏗 Concept
+This project treats the local network as a "physical" entity, where its state is captured in `network_state.json`. This JSON file acts as the **Digital Twin** — a virtual mirror that allows for visualization and analysis decoupled from real-time scan latency.
 
-## 🏗 System Architecture
-* **Data Acquisition Layer:** Real-time collection of network telemetry.
-* **Processing Engine:** Logical mapping between physical devices and virtual objects.
-* **Visualization/Alerting:** Telegram-based control interface and state synchronization.
+## ⚙️ Workflow
+1. **Abstraction Layer (`arp.py`):** Performs network discovery to map the physical state.
+2. **Twin Synchronization (`network_state.json`):** Persists the network topology, acting as the Single Source of Truth for the virtual model.
+3. **Visualization Layer (`visualize.py`):** Uses an interactive graph engine to render the current "digital" state of the network.
 
-## 🚀 Key Technologies
-* **Language:** Python / C# (.NET)
-* **Monitoring:** Nmap, Sockets
-* **Communication:** Telegram Bot API
-* **Modeling:** [Вкажіть, що ви використовуєте для логіки двійника]
+## 🛠 Features
+* **State Persistence:** Maintains a persistent virtual model of the network.
+* **Topological Visualization:** Renders interactive maps based on current device connectivity.
+* **Decoupled Architecture:** Separates data collection from the visualization engine.
 
-## 🛠 Setup
-1. Clone the repository: `git clone ...`
-2. Configure your environment settings in `config.json`.
-3. Launch the twin synchronization: `python main.py`
+## 🚀 How to use
+1. **Sync State:** Run `python arp.py` to update the digital twin model.
+2. **Visualize:** Launch `visualize.py` to open the interactive topology map in your web browser.
 
-## 🛡 Security Note
-This project adheres to ethical security standards. Ensure you have explicit authorization before implementing the monitoring of any network environment.
+## ⚠️ Note
+This project is intended for network topology mapping and educational digital twin modeling. Ensure compliance with local privacy regulations when scanning network environments.
